@@ -48,9 +48,9 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 	
-	char *input_dir=malloc(100000); 
-	output_dir = malloc(100000);
-	outputname = malloc(100000);
+	char *input_dir=malloc(4096); 
+	output_dir = malloc(4096);
+	outputname = malloc(4096);
 	DIR *dir;
 	char path[4096];
 	//num_processes = 0;
