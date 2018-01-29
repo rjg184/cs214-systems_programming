@@ -1,12 +1,3 @@
-/*
- * mergesort.c
- * 
- * Authors: 
- * Ronak Gandhi
- * Maxwell Mucha
- * 
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
