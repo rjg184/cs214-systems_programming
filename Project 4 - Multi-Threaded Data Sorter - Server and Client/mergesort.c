@@ -12,512 +12,143 @@ int compareStrings(char *str1, char *str2){
 		return 1;
 	}
 	
-} //end of 'compareStrings' function
+} //end of 'compareStrings'
 
-void NUMmerge(record *arr, int l, int m, int r, int colnum){
+void merge(movie *arr, int left, int middle, int right, int category){
+
+	int k = left;
 	
-    	int i, j, k;
-    	int n1 = m - l + 1; 	//size of left array
-    	int n2 =  r - m;	//size of right array
- 
-    	record * tempL = malloc(sizeof(record)*n1); 		//temp arrays
-	record * tempR = malloc(sizeof(record)*n2);	
-
-    	for (i = 0; i < n1; i++){	//copy data to temp arrays
-        	tempL[i] = arr[l+i];
+	// Left Sub-Array
+	int i;
+	int sizeL = (middle - left + 1); //size of left array
+	struct movie *arrLeft = malloc(sizeof(struct movie) * sizeL);
+	for (i = 0; i < sizeL; i++){ //copy data to temp arrays
+		arrLeft[i] = arr[i + left];
 	}
-    	for (j = 0; j < n2; j++){
-        	tempR[j] = arr[m+1+j];
-	}
+	i = 0;
 	
-    	/* merge back into temp array*/
-    	i = 0; // first index of first subarray
-    	j = 0; // first index of second subarray
-    	k = l; // first index of merged subarray
-
-	switch(colnum){
-		case(0):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].color,tempR[j].color);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(1):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].directorName,tempR[j].directorName);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(2): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].numCriticReviews <= tempR[j].numCriticReviews){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(3)://INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].duration <= tempR[j].duration){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(4): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].directorFBlikes <= tempR[j].directorFBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(5): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].actor3FBlikes <= tempR[j].actor3FBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(6):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].actor2name,tempR[j].actor2name);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(7): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].actor1FBlikes <= tempR[j].actor1FBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(8): //FLOAT/DOUBLE
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].gross <= tempR[j].gross){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(9):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].genres,tempR[j].genres);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(10):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].actor1name,tempR[j].actor1name);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(11): //CHAR
-			//printf("working \n");
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].movieTitle,tempR[j].movieTitle);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(12): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].numVotedUsers <= tempR[j].numVotedUsers){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;		
-		case(13): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].castTotalFBlikes <= tempR[j].castTotalFBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(14):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].actor3name,tempR[j].actor3name);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;	
-		case(15): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].faceNumberPoster <= tempR[j].faceNumberPoster){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(16):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].plotKeywords,tempR[j].plotKeywords);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;	
-		case(17):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].link,tempR[j].link);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;		
-		case(18): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].numUserReviews <= tempR[j].numUserReviews){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;	
-		case(19):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].language,tempR[j].language);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;		
-		case(20):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].country,tempR[j].country);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(21):
-			//CHAR
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-				int result = compareStrings(tempL[i].contentRating,tempR[j].contentRating);
-        			if (result == 1){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(22): //FLOAT/DOUBLE
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].budget <= tempR[j].budget){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(23): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].titleYear <= tempR[j].titleYear){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(24): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].actor2FBlikes <= tempR[j].actor2FBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(25): //FLOAT/DOUBLE
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].imdbScore <= tempR[j].imdbScore){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(26): //FLOAT/DOUBLE
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].aspectRatio <= tempR[j].aspectRatio){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
-		case(27): //INT
-			while (i < n1 && j < n2){ //sees if i or j is larger and puts the smallest one into temp
-        			if (tempL[i].movieFBlikes <= tempR[j].movieFBlikes){
-            				arr[k] = tempL[i];	
-            				i++;
-        			}else{
-            				arr[k] = tempR[j];
-            				j++;
-        			}
-        			k++;
-    			}
-			break;
+	// Right Sub-Array
+	int j;
+	int sizeR =  (right - middle); //size of right array
+	struct movie *arrRight = malloc(sizeof(struct movie) * sizeR);
+	for (j = 0; j < sizeR; j++){
+		arrRight[j] = arr[j + middle + 1];
+	}
+	j = 0;
+	
+	int strVal;
+	int valueL;
+	int valueR;
+	double dvalueL;
+	double dvalueR;
+		
+	while (i < sizeL && j < sizeR){
+		if(category == 0){ strVal = compareStrings(arrLeft[i].color, arrRight[j].color); }
+		else if(category == 1){ strVal = compareStrings(arrLeft[i].directorName, arrRight[j].directorName); }
+		else if(category == 2){ valueL = arrLeft[i].numCriticReviews; valueR = arrRight[j].numCriticReviews; }
+		else if(category == 3){ valueL = arrLeft[i].duration; valueR = arrRight[j].duration; }
+		else if(category == 4){ valueL = arrLeft[i].directorFBlikes; valueR = arrRight[j].directorFBlikes; }
+		else if(category == 5){ valueL = arrLeft[i].actor3FBlikes; valueR = arrRight[j].actor3FBlikes; }
+		else if(category == 6){ strVal = compareStrings(arrLeft[i].actor2name, arrRight[j].actor2name); }
+		else if(category == 7){ valueL = arrLeft[i].actor1FBlikes; valueR = arrRight[j].actor1FBlikes; }
+		else if(category == 8){ valueL = arrLeft[i].gross; valueR = arrRight[j].gross; }
+		else if(category == 9){ strVal = compareStrings(arrLeft[i].genres, arrRight[j].genres); }
+		else if(category == 10){ strVal = compareStrings(arrLeft[i].actor1name, arrRight[j].actor1name); }
+		else if(category == 11){ strVal = compareStrings(arrLeft[i].movieTitle, arrRight[j].movieTitle); }
+		else if(category == 12){ valueL = arrLeft[i].numVotedUsers; valueR = arrRight[j].numVotedUsers; }
+		else if(category == 13){ valueL = arrLeft[i].castTotalFBlikes; valueR = arrRight[j].castTotalFBlikes; }
+		else if(category == 14){ strVal = compareStrings(arrLeft[i].actor3name, arrRight[j].actor3name); }
+		else if(category == 15){ valueL = arrLeft[i].faceNumberPoster; valueR = arrRight[j].faceNumberPoster; }
+		else if(category == 16){ strVal = compareStrings(arrLeft[i].plotKeywords, arrRight[j].plotKeywords); }
+		else if(category == 17){ strVal = compareStrings(arrLeft[i].link, arrRight[j].link); }
+		else if(category == 18){ valueL = arrLeft[i].numUserReviews; valueR = arrRight[j].numUserReviews; }
+		else if(category == 19){ strVal = compareStrings(arrLeft[i].language, arrRight[j].language); }
+		else if(category == 20){ strVal = compareStrings(arrLeft[i].country, arrRight[j].country); }
+		else if(category == 21){ strVal = compareStrings(arrLeft[i].contentRating, arrRight[j].contentRating); }
+		else if(category == 22){ valueL = arrLeft[i].budget; valueR = arrRight[j].budget; }
+		else if(category == 23){ valueL = arrLeft[i].titleYear; valueR = arrRight[j].titleYear; }
+		else if(category == 24){ valueL = arrLeft[i].actor2FBlikes; valueR = arrRight[j].actor2FBlikes; }
+		else if(category == 25){ dvalueL = arrLeft[i].imdbScore; dvalueR = arrRight[j].imdbScore; }
+		else if(category == 26){ dvalueL = arrLeft[i].aspectRatio; dvalueR = arrRight[j].aspectRatio; }
+		else if(category == 27){ valueL = arrLeft[i].movieFBlikes; valueR = arrRight[j].movieFBlikes; 
+	}
+			
+		// Strings
+		if(category == 0 || category == 1 || category == 6 || category == 9 || category == 10 || category == 11 || category == 14 || category == 16 || category == 17 || category == 19 || category == 20 || category == 21){
+			if(strVal == 1){
+				arr[k] = arrLeft[i];
+				i++;
+			} else {
+				arr[k] = arrRight[j];
+				j++;
+			}
+			k++;
+		}
+			
+		// Ints
+		if(category == 2 || category == 3 || category == 4 || category == 5 || category == 7 || category == 8 || category == 12 || category == 13 || category == 15 || category == 18 || category == 22 || category == 23 || category == 24 || category == 27){
+			if(valueL <= valueR){
+				arr[k] = arrLeft[i]; 
+				i++;
+			} else {
+				arr[k] = arrRight[j];
+				j++;
+			}
+			k++;
+		}
+		
+		// Doubles
+		if(category == 25 || category == 26){
+			if(dvalueL <= dvalueR){
+				arr[k] = arrLeft[i]; 
+				i++;
+			} else {
+				arr[k] = arrRight[j];
+				j++;
+			}
+			k++;
+		}
+		
+		
 	}
 	
-	// Left
-	while (i < n1){
-		arr[k] = tempL[i];
-        i++;
-        k++;
-    }
-    
- 	// Right
-    	while (j < n2){
-        	arr[k] = tempR[j];
-        	j++;
-        	k++;
-    	}
-	free(tempL);
-	free(tempR);
+	// Left Array - copy leftover elements
+	while (i < sizeL){
+		arr[k] = arrLeft[i];
+		i++;
+		k++;
+	}
 	
-} //end of 'NUMmerge'
+	// Right Array - copy leftover elements
+	while (j < sizeR){
+		arr[k] = arrRight[j];
+		j++;
+		k++;
+	}
+	
+	// Free left and right sub-arrays
+	free(arrLeft);
+	free(arrRight);
+	
+} //end of 'merge'
 
-void NUMmergeSorter(record *arr, int left, int right, int colnum) {
+void mergesortHelper(movie *arr, int left, int right, int category) {
 	
 		if (left < right){
 			int middle = left + ((right - left) / 2);
 		
-			NUMmergeSorter(arr, left, middle, colnum);
-			NUMmergeSorter(arr, (middle + 1), right, colnum);
+			mergesortHelper(arr, left, middle, category);
+			mergesortHelper(arr, (middle + 1), right, category);
 		
-			NUMmerge(arr, left, middle, right, colnum);
+			merge(arr, left, middle, right, category);
 		}
 
-}
+} //end of 'mergesortHelper'
 
-record *mergesort(record *records, int colnum, int size) { //splits array into arrays of one
+movie *mergesort(movie *arr, int category, int size) {
 	
-	switch(colnum){
-		case(0):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(1):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(2):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(3):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(4):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(5):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(6):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(7):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(8):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(9):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(10):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(11):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(12):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;		
-		case(13):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(14):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;	
-		case(15):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(16):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;	
-		case(17):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;		
-		case(18):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;	
-		case(19):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;		
-		case(20):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(21):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(22):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(23):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(24):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(25):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(26):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-		case(27):
-			NUMmergeSorter(records,0,size-1 ,colnum);
-			break;
-	}
+	mergesortHelper(arr, 0, (size - 1), category);
 	
-	return records;
+	return arr;
 	
 } //end of 'mergesort'

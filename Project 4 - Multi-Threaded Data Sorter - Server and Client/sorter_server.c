@@ -16,7 +16,7 @@
 
 #define MAX_FILES 10000
  
-record *Globalarray;
+movie *Globalarray;
 int colnum;
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 int Globalarraysize;
@@ -26,7 +26,7 @@ char *output_dir;
 int hasoutput;
 int hasinput;
 
-int loadArray(char * data, record * array)
+int loadArray(char * data, movie * array)
 {
 
     int size = 128;
@@ -290,7 +290,7 @@ void *clientHandler(void *fd) {
 
 		char * buffer = malloc(sizeof(char) * buffSize); //inializes the buffer in which we will put all of the new csv files
 		char * data = calloc(sizeof(char), buffSize); //initializes the 
-		record * array = malloc(buffSize * 1.5);
+		movie * array = malloc(buffSize * 1.5);
 		int bytesrec=0;
 		while(1){
 			bzero(buffer, buffSize);  //this nulls out "buffer" so theres no leftover characters each time it reads from client
@@ -318,7 +318,7 @@ void *clientHandler(void *fd) {
 			int currsize = Globalarraysize;
 		    	Globalarraysize+=i;
 			//printf("Globalarraysize:%d\n",Globalarraysize);
-		    	Globalarray=realloc(Globalarray,Globalarraysize*sizeof(record));
+		    	Globalarray=realloc(Globalarray,Globalarraysize*sizeof(movie));
 			int k;
 			int l = 0;	
 			for(k=currsize; k<Globalarraysize; k++)
@@ -344,7 +344,7 @@ void *clientHandler(void *fd) {
 		pthread_mutex_lock(&m);
 		mergesort(Globalarray,colnum,Globalarraysize);
 		pthread_mutex_unlock(&m);
-		record * array = Globalarray;
+		movie * array = Globalarray;
 		char finalline[3000];
 		
 		char num[20];

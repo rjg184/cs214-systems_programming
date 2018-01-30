@@ -505,7 +505,7 @@ int main(int argc, char ** argv){
 	if(fp==NULL)
 	{
 		printf("output_Dir: %s\n", output_dir);
-		printf("Shits broke my dude\n");
+		printf("broken\n");
 		return 0;
 	}
 	printf("output_Dir: %s\n", output_dir);

@@ -7,7 +7,7 @@
 ******/
 
 /* Struct for each movie in CSV file. Each movie contains 28 fields that describe it according to IMDB. */
-typedef struct record {
+typedef struct movie {
 	
 	char *color;
 	char *directorName;
@@ -38,7 +38,7 @@ typedef struct record {
 	double aspectRatio;
 	int movieFBlikes;
 	
-} record;
+} movie;
 
 /* Trims/removes leading and trailing spaces in a string */
 void trim(char* token) {
